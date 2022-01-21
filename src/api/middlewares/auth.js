@@ -9,7 +9,8 @@ const authValidate = async (req, res, next) => {
   try {
   const { authorization } = req.headers;
 console.log(authorization, 'auth');
-  if (!authorization) throw errorConstructor(badRequest, 'missing auth token');
+
+  if (!authorization) return res.status(badRequest).json({ messsage: 'missing auth token' });
 
     const payload = jwt.verify(authorization, JWT_SECRET);
     const user = await findUser(payload.email);

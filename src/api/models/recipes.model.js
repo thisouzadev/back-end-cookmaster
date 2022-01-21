@@ -6,9 +6,9 @@ const create = async (name, ingredients, preparation, userId) => {
     name, ingredients, preparation, userId,
   });
 
-  return { recipe: name, ingredients, preparation, userId, _id: insertedId };
+  return { recipe: { name, ingredients, preparation, userId, _id: insertedId } };
 };
 
 module.exports = {
-  create
+  create,
 };
