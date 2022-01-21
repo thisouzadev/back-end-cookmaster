@@ -8,8 +8,7 @@ const login = async (req, res, next) => {
     const { email, password } = req.body;
     const result = await loginUser(email, password);
     const payload = {
-      email: req.body.email,
-      admin: false,
+      email,
     };
 
     const token = jwt.sign(payload, JWT_SECRET, {
