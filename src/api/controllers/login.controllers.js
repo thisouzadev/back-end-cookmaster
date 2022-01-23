@@ -1,17 +1,16 @@
 const jwt = require('jsonwebtoken');
 const { loginUser } = require('../services/users.services');
 
-const { JWT_SECRET } = process.env;
+const JWT_SECRET = '123456';
 
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const validacao = await loginUser(email, password);
-    const { name, _id } = validacao;
+    console.log(validacao, 'controler');
+    
     const payload = {
       email,
-      name,
-      _id,
     };
 
     const token = jwt.sign(payload, JWT_SECRET, {

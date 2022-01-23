@@ -1,7 +1,7 @@
 const Joi = require('@hapi/joi');
 const { create, findUser } = require('../models/users.model');
 const errorConstructor = require('../utils/functions/errorHandling');
-const { badRequest, conflict, Unauthorized } = require('../utils/dictionary/statusCode');
+const { badRequest, conflict, unauthorized } = require('../utils/dictionary/statusCode');
 
 const usersSchema = Joi.object({
   name: Joi.string().required(),
@@ -32,12 +32,12 @@ const createUsers = async (name, email, password) => {
 
 const loginUser = async (email, password) => {
   const { error } = loginSchema.validate({ email, password });
-  if (error) throw errorConstructor(Unauthorized, 'All fields must be filled');
+  if (error) throw errorConstructor(unauthorized, 'All fields must be filled');
 
   const user = await findUser(email);
 
   if (!user || user.password !== password) {
-    throw errorConstructor(Unauthorized, 'Incorrect username or password');
+    throw errorConstructor(unauthorized, 'Incorrect username or password');
   }
 
   return user;

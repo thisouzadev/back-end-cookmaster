@@ -3,14 +3,14 @@ const { findUser } = require('../models/users.model');
 const errorConstructor = require('../utils/functions/errorHandling');
 const { badRequest, Unauthorized } = require('../utils/dictionary/statusCode');
 
-const { JWT_SECRET } = process.env;
+const JWT_SECRET = '123456';
 
 const authValidate = async (req, res, next) => {
   try {
-  const { authorization } = req.headers;
-console.log(authorization, 'auth');
+    const { authorization } = req.headers;
+    console.log(authorization, 'auth');
 
-  if (!authorization) return res.status(badRequest).json({ messsage: 'missing auth token' });
+    if (!authorization) return res.status(badRequest).json({ messsage: 'missing auth token' });
 
     const payload = jwt.verify(authorization, JWT_SECRET);
     const user = await findUser(payload.email);
@@ -20,7 +20,7 @@ console.log(authorization, 'auth');
     return next();
   } catch (error) {
     console.log(`POST CREATAUTHORIZATION -> ${error.message}`);
-    return errorConstructor(Unauthorized, 'jwt malformed');
+    return next(errorConstructor(Unauthorized, 'jwt malformed'));
   }
 };
 
