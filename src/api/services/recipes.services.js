@@ -1,5 +1,5 @@
 const Joi = require('@hapi/joi');
-const { create } = require('../models/recipes.model');
+const { create, findAll } = require('../models/recipes.model');
 const errorConstructor = require('../utils/functions/errorHandling');
 const { badRequest } = require('../utils/dictionary/statusCode');
 
@@ -18,7 +18,11 @@ const createRecipes = async (name, ingredients, preparation, userId) => {
   const id = await create(name, ingredients, preparation, userId);
   return id;
 };
-
+const findAllRecipes = async () => {
+const showAllRecipes = await findAll();
+return showAllRecipes;
+};
 module.exports = {
   createRecipes,
+  findAllRecipes,
 };

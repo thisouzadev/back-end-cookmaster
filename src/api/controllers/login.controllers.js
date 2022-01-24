@@ -16,7 +16,6 @@ const login = async (req, res, next) => {
       expiresIn: '1h',
       algorithm: 'HS256',
     });
-    console.log(token, 'controle');
     return res.status(200).json({ token });
   } catch (error) {
     console.log(`POST LOGIN -> ${error.message}`);
