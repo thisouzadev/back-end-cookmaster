@@ -30,7 +30,7 @@ const createUsers = async (name, email, password) => {
   return id;
 };
 
-const loginUser = async (email, password) => {
+const loginUserValidacao = async (email, password) => {
   const { error } = loginSchema.validate({ email, password });
   if (error) throw errorConstructor(unauthorized, 'All fields must be filled');
 
@@ -44,5 +44,5 @@ const loginUser = async (email, password) => {
 };
 module.exports = {
   createUsers,
-  loginUser,
+  loginUserValidacao,
 };

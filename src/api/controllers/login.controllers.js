@@ -1,13 +1,12 @@
 const jwt = require('jsonwebtoken');
-const { loginUser } = require('../services/users.services');
+const { loginUserValidacao } = require('../services/users.services');
 
 const JWT_SECRET = '123456';
 
 const login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const validacao = await loginUser(email, password);
-    console.log(validacao, 'controler');
+    await loginUserValidacao(email, password);
     
     const payload = {
       email,
@@ -17,8 +16,8 @@ const login = async (req, res, next) => {
       expiresIn: '1h',
       algorithm: 'HS256',
     });
-
-    return res.status(200).json(token || validacao);
+    console.log(token, 'controle');
+    return res.status(200).json({ token });
   } catch (error) {
     console.log(`POST LOGIN -> ${error.message}`);
     return next(error);
