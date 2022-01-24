@@ -42,6 +42,7 @@ const loginUserValidacao = async (email, password) => {
 
   return user;
 };
+
 module.exports = {
   createUsers,
   loginUserValidacao,

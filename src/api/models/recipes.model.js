@@ -21,6 +21,7 @@ const findById = async (id) => {
 
   return insertedId;
 };
+
 module.exports = {
   create,
   findAll,
