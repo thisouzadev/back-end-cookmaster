@@ -1,6 +1,7 @@
 const {
   createRecipes,
   findAllRecipes,
+  findByIdOneRecipe,
 } = require('../services/recipes.services');
 const {
   success,
@@ -23,11 +24,24 @@ const getAllRecipes = async (req, res, next) => {
     const findAll = await findAllRecipes();
     return res.status(success).json(findAll);
   } catch (error) {
-    console.log(`POST FINDRECIPES -> ${error.message}`);
+    console.log(`GET FINDRECIPES -> ${error.message}`);
+    return next(error);
+  }
+};
+const getByIdRecipe = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const recipe = await findByIdOneRecipe(id);
+
+    if (recipe.error) return next(recipe.error);
+    return res.status(success).json(recipe);
+  } catch (error) {
+    console.log(`POST FINDBYIDPRODUCT -> ${error.message}`);
     return next(error);
   }
 };
 module.exports = {
   addRecipes,
-  getAllRecipes
+  getAllRecipes,
+  getByIdRecipe,
 };
