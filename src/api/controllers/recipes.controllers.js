@@ -3,10 +3,12 @@ const {
   findAllRecipes,
   findByIdOneRecipe,
   updateRecipeById,
+  excludeRecipeById,
 } = require('../services/recipes.services');
 const {
   success,
   created,
+  noContent,
 } = require('../utils/dictionary/statusCode');
 
 const addRecipes = async (req, res, next) => {
@@ -49,7 +51,18 @@ const updateRecipe = async (req, res, next) => {
 
     res.status(200).json({ _id: id, ...recipe, userId: _id });
   } catch (error) {
+    console.log(`PUT UPDATERECIPE -> ${error.message}`);
     next(error);
+  }
+};
+const excludeRecipe = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    const recipe = await excludeRecipeById(id);
+    return res.status(noContent).json(recipe);
+  } catch (error) {
+    console.log(`DELETE DELETERECIPE -> ${error.message}`);
+    return next(error);
   }
 };
 module.exports = {
@@ -57,4 +70,5 @@ module.exports = {
   getAllRecipes,
   getByIdRecipe,
   updateRecipe,
+  excludeRecipe,
 };

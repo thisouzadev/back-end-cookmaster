@@ -6,6 +6,7 @@ const {
   getAllRecipes,
   getByIdRecipe,
   updateRecipe,
+  excludeRecipe,
 } = require('../controllers/recipes.controllers');
 const { authValidate } = require('../middlewares/auth');
 
@@ -17,4 +18,5 @@ router.post('/recipes', authValidate, addRecipes);
 router.put('/recipes/:id', authValidate, updateRecipe);
 router.get('/recipes', getAllRecipes);
 router.get('/recipes/:id', getByIdRecipe);
+router.delete('/recipes/:id', authValidate, excludeRecipe);
 module.exports = router;
