@@ -2,6 +2,7 @@ const {
   createRecipes,
   findAllRecipes,
   findByIdOneRecipe,
+  updateRecipeById,
 } = require('../services/recipes.services');
 const {
   success,
@@ -40,8 +41,20 @@ const getByIdRecipe = async (req, res, next) => {
     return next(error);
   }
 };
+const updateRecipe = async (req, res, next) => {
+  try {
+    const { params: { id }, body: recipe, user: { _id } } = req;
+
+    await updateRecipeById(id, recipe);
+
+    res.status(200).json({ _id: id, ...recipe, userId: _id });
+  } catch (error) {
+    next(error);
+  }
+};
 module.exports = {
   addRecipes,
   getAllRecipes,
   getByIdRecipe,
+  updateRecipe,
 };

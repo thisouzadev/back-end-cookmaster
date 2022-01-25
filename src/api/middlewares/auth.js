@@ -9,16 +9,17 @@ const authValidate = async (req, res, next) => {
   try {
     const { authorization } = req.headers;
 
-    if (!authorization) throw errorConstructor(unauthorized, 'missing auth token');
+    if (!authorization) return next(errorConstructor(unauthorized, 'missing auth token'));
 
     const payload = jwt.verify(authorization, JWT_SECRET);
     const user = await findUser(payload.email);
-    if (!payload) throw errorConstructor(badRequest, 'jwt malformed');
+    if (!payload) return next(errorConstructor(badRequest, 'jwt malformed'));
     req.user = user;
 
     return next();
   } catch (error) {
     console.log(`POST CREATAUTHORIZATION -> ${error.message}`);
+
     return next(errorConstructor(unauthorized, 'jwt malformed'));
   }
 };
