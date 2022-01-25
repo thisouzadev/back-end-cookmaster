@@ -73,6 +73,7 @@ try {
   const { filename } = req.file;
   await uploadImageMulter(id, filename);
   const recipe = await getByIdRecipe(id);
+  console.log(recipe);
   return res.status(success).json(recipe);
 } catch (error) {
   console.log(`PUT UPLOADIMAGERECIPE -> ${error.message}`);

@@ -20,7 +20,7 @@ const authValidate = async (req, res, next) => {
   } catch (error) {
     console.log(`POST CREATAUTHORIZATION -> ${error.message}`);
 
-    return next(errorConstructor(unauthorized, 'jwt malformed'));
+    return next(errorConstructor(badRequest, 'jwt malformed'));
   }
 };
 
