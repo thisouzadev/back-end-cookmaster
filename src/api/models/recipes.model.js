@@ -11,9 +11,9 @@ const create = async (name, ingredients, preparation, userId) => {
 };
 
 const findAll = async () => {
-const db = await connect();
-const recipe = await db.collection('recipes').find().toArray();
-return recipe;
+  const db = await connect();
+  const recipe = await db.collection('recipes').find().toArray();
+  return recipe;
 };
 const findById = async (id) => {
   const db = await connect();
@@ -34,10 +34,19 @@ const excludeRecipe = async (id) => {
   await db.collection('recipes').deleteOne({ _id: ObjectId(id) });
   return recipe;
 };
+const uploadImage = async (id, filename) => {
+  const conn = await connect();
+  const result = await conn.collection('recipes').updateOne(
+    { _id: ObjectId(id) },
+    { $set: { image: `localhost:3000/src/uploads/${filename}` } },
+  );
+  return result;
+};
 module.exports = {
   create,
   findAll,
   findById,
   updateRecipe,
   excludeRecipe,
+  uploadImage,
 };

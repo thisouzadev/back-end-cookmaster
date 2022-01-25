@@ -5,6 +5,7 @@ const {
   findById,
   updateRecipe,
   excludeRecipe,
+  uploadImage,
 } = require('../models/recipes.model');
 const errorConstructor = require('../utils/functions/errorHandling');
 const { badRequest, notFound } = require('../utils/dictionary/statusCode');
@@ -44,10 +45,14 @@ const excludeRecipeById = async (id) => {
   await excludeRecipe(id);
   return recipe;
 };
+const uploadImageMulter = async (id, filename) => {
+  await uploadImage(id, filename);
+};
 module.exports = {
   createRecipes,
   findAllRecipes,
   findByIdOneRecipe,
   updateRecipeById,
   excludeRecipeById,
+  uploadImageMulter,
 };

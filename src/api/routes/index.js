@@ -7,8 +7,10 @@ const {
   getByIdRecipe,
   updateRecipe,
   excludeRecipe,
+  uploadImageRecipe,
 } = require('../controllers/recipes.controllers');
 const { authValidate } = require('../middlewares/auth');
+const upload = require('../middlewares/multer');
 
 const router = express.Router();
 
@@ -19,4 +21,6 @@ router.put('/recipes/:id', authValidate, updateRecipe);
 router.get('/recipes', getAllRecipes);
 router.get('/recipes/:id', getByIdRecipe);
 router.delete('/recipes/:id', authValidate, excludeRecipe);
+router.put('/:id/image/', authValidate, upload, uploadImageRecipe);
+
 module.exports = router;

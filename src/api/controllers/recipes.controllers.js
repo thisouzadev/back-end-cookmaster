@@ -4,6 +4,7 @@ const {
   findByIdOneRecipe,
   updateRecipeById,
   excludeRecipeById,
+  uploadImageMulter,
 } = require('../services/recipes.services');
 const {
   success,
@@ -18,7 +19,7 @@ const addRecipes = async (req, res, next) => {
     const recipe = await createRecipes(name, ingredients, preparation, idUser);
     return res.status(created).json(recipe);
   } catch (error) {
-    console.log(`POST CREATERECIPES -> ${error.message}`);
+    console.log(`POST CREATERECIPE -> ${error.message}`);
     return next(error);
   }
 };
@@ -39,7 +40,7 @@ const getByIdRecipe = async (req, res, next) => {
     if (recipe.error) return next(recipe.error);
     return res.status(success).json(recipe);
   } catch (error) {
-    console.log(`POST FINDBYIDPRODUCT -> ${error.message}`);
+    console.log(`POST FINDBYIDRECIPE -> ${error.message}`);
     return next(error);
   }
 };
@@ -65,10 +66,25 @@ const excludeRecipe = async (req, res, next) => {
     return next(error);
   }
 };
+
+const uploadImageRecipe = async (req, res, next) => {
+try {
+  const { id } = req.params;
+  const { filename } = req.file;
+  await uploadImageMulter(id, filename);
+  const recipe = await getByIdRecipe(id);
+  return res.status(success).json(recipe);
+} catch (error) {
+  console.log(`PUT UPLOADIMAGERECIPE -> ${error.message}`);
+    return next(error);
+}
+};
+
 module.exports = {
   addRecipes,
   getAllRecipes,
   getByIdRecipe,
   updateRecipe,
   excludeRecipe,
+  uploadImageRecipe,
 };
