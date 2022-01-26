@@ -20,7 +20,7 @@ router.post('/recipes', authValidate, addRecipes);
 router.put('/recipes/:id', authValidate, updateRecipe);
 router.get('/recipes', getAllRecipes);
 router.get('/recipes/:id', getByIdRecipe);
-router.put('recipes/:id/image/', authValidate, upload, uploadImageRecipe);
+router.put('/recipes/:id/image/', authValidate, upload, uploadImageRecipe);
 router.delete('/recipes/:id', authValidate, excludeRecipe);
 
 module.exports = router;

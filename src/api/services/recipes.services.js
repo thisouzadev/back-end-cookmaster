@@ -34,7 +34,6 @@ const findByIdOneRecipe = async (id) => {
   const { error } = idSchema.validate(id);
   if (error) throw errorConstructor(notFound, 'recipe not found');
   const product = await findById(id);
-
   return product;
 };
 const updateRecipeById = async (id, recipe) => {
