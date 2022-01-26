@@ -22,8 +22,8 @@ const findById = async (id) => {
   return insertedId;
 };
 const updateRecipe = async (id, recipe) => {
-  const conn = await connect();
-  const result = await conn.collection('recipes').updateOne(
+  const db = await connect();
+  const result = await db.collection('recipes').updateOne(
     { _id: ObjectId(id) }, { $set: recipe },
   );
   return result;
@@ -35,8 +35,8 @@ const excludeRecipe = async (id) => {
   return recipe;
 };
 const uploadImage = async (id, filename) => {
-  const conn = await connect();
-  const result = await conn.collection('recipes').updateOne(
+  const db = await connect();
+  const result = await db.collection('recipes').updateOne(
     { _id: ObjectId(id) },
     { $set: { image: `localhost:3000/src/uploads/${filename}` } },
   );

@@ -68,17 +68,15 @@ const excludeRecipe = async (req, res, next) => {
 };
 
 const uploadImageRecipe = async (req, res, next) => {
-try {
-  const { id } = req.params;
-  const { filename } = req.file;
-  await uploadImageMulter(id, filename);
-  const recipe = await getByIdRecipe(id);
-  console.log(recipe);
-  return res.status(success).json(recipe);
-} catch (error) {
-  console.log(`PUT UPLOADIMAGERECIPE -> ${error.message}`);
+  try {
+    const { id } = req.params;
+    const { filename } = req.file;
+    const recipe = await uploadImageMulter(id, filename);
+    return res.status(success).json(recipe);
+  } catch (error) {
+    console.log(`PUT UPLOADIMAGERECIPE -> ${error.message}`);
     return next(error);
-}
+  }
 };
 
 module.exports = {

@@ -7,6 +7,7 @@ const {
   excludeRecipe,
   uploadImage,
 } = require('../models/recipes.model');
+const { findUser } = require('../models/users.model');
 const errorConstructor = require('../utils/functions/errorHandling');
 const { badRequest, notFound } = require('../utils/dictionary/statusCode');
 
@@ -47,6 +48,8 @@ const excludeRecipeById = async (id) => {
 };
 const uploadImageMulter = async (id, filename) => {
   await uploadImage(id, filename);
+  const recipe = await findByIdOneRecipe(id);
+  return recipe;
 };
 module.exports = {
   createRecipes,

@@ -13,6 +13,7 @@ const create = async (name, email, password) => {
 const findUser = async (email) => {
   const db = await connect();
   const result = await db.collection('users').findOne({ email });
+  console.log(result, 'findUser');
   return result;
 };
 
